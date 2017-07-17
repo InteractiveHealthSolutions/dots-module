@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+<%@ include file="/WEB-INF/view/module/dotsreports/include.jsp"%>
+<%@ include file="../dotsHeader.jsp"%>
 <%
 response.setHeader("Cache-Control","no-cache"); 
 response.setHeader("Pragma","no-cache"); 
@@ -26,7 +29,7 @@ response.setDateHeader ("Expires", -1);
 			<tr>
 				
 				<td width="90%" align="center" style="font-size:14px; font-weight:bold;border:0px">
-						Квартальный отчет о результатах лечения случаев ТБ, выявленных 12-15 месяцев назад
+						<spring:message code="dotsreports.tb08.title"/>
 				</td>
 				<td width="10%" align="right" style="font-size:14px; font-weight:bold;border:0px;" valign="top" border="0">&nbsp;</td>
 			</tr></table>
@@ -34,13 +37,13 @@ response.setDateHeader ("Expires", -1);
 		<table border="1" width="100%">
 		<tr>
 		<td>
-		Наименование учреждения:______________________ <br/>
-		Область/район:  <u> ${ location } </u><br/>
-		ФИО координатора по ТБ: ____________________Подпись: ____________<br/>
+		�?аименование учреждени�?:______________________ <br/>
+		Обла�?ть/район:  <u> ${ location } </u><br/>
+		ФИО координатора по ТБ: ____________________Подпи�?ь: ____________<br/>
 		</td>
 		
 		<td>
-		Случаи ТБ, выявленные за <u> ${ quarter } </u> квартал  <u> ${ year } </u> года <br/>
+		Случаи ТБ, вы�?вленные за <u> ${ quarter } </u> квартал  <u> ${ year } </u> года <br/>
 		Дата отчета: ${reportDate }
 		</td>
 		</tr>
@@ -56,10 +59,10 @@ response.setDateHeader ("Expires", -1);
 					<td rowspan="2">
 						&nbsp;</td>
 					<td rowspan="2" style="text-align: center;">
-						Выявлено, всего</td>
+						Вы�?влено, в�?его</td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Когорта, подлежащая оценке &nbsp;</div>
+							Когорта, подлежаща�? оценке &nbsp;</div>
 						
 					</td>
 					<td rowspan="2" style="text-align: center;">
@@ -77,9 +80,9 @@ response.setDateHeader ("Expires", -1);
 							&nbsp;</p>
 					</td>
 					<td rowspan="2" style="text-align: center;">
-						Неэффективное<br/> лечение</td>
+						�?е�?ффективное<br/> лечение</td>
 					<td rowspan="2" style="text-align: center;">
-						Потерян для<br/>последующего<br/>наблюдения</td>
+						Потер�?н дл�?<br/>по�?ледующего<br/>наблюдени�?</td>
 					
 					<td rowspan="2">
 						<div style="text-align: center;">
@@ -90,7 +93,7 @@ response.setDateHeader ("Expires", -1);
 					</td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Начал лечение по  </div>
+							�?ачал лечение по  </div>
 						<div style="text-align: center;">
 							Режиму II&nbsp;</div>
 					</td>
@@ -98,11 +101,11 @@ response.setDateHeader ("Expires", -1);
 						<div style="text-align: center;">
 							Диагноз </div>
 						<div style="text-align: center;">
-							снят&nbsp;</div>
+							�?н�?т&nbsp;</div>
 					</td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Не имеют   &nbsp;</div>
+							�?е имеют   &nbsp;</div>
 						<div style="text-align: center;">
 							результат&nbsp;</div>
 						
@@ -149,7 +152,7 @@ response.setDateHeader ("Expires", -1);
 					<td style="font: bold;">
 						1</td>
 					<td style="font: bold;">
-						Новые случаи</td>
+						�?овые �?лучаи</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -170,7 +173,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						1.1</td>
 					<td>
-						Л ТБ с БП &nbsp;</td>
+						Л ТБ �? БП &nbsp;</td>
 					<td>
 						${table1.newPulmonaryBCDetected }</td>
 					<td>
@@ -292,7 +295,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						1.2</td>
 					<td>
-						Л ТБ с КУ </td>
+						Л ТБ �? КУ </td>
 					<td>
 						${table1.newPulmonaryCDDetected }</td>
 					<td>
@@ -686,7 +689,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						2.1</td>
 					<td>
-						Л ТБ с БП </td>
+						Л ТБ �? БП </td>
 					<td>
 						${table1.relapsePulmonaryBCDetected }</td>
 					<td>
@@ -809,7 +812,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						2.2</td>
 					<td>
-						Л ТБ с КУ </td>
+						Л ТБ �? КУ </td>
 					<td>
 						${table1.relapsePulmonaryCDDetected }</td>
 					<td>
@@ -1177,7 +1180,7 @@ response.setDateHeader ("Expires", -1);
 					<td style="font: bold;">
 						3</td>
 					<td style="font: bold;">
-						После неэффективн ого лечения</td>
+						По�?ле не�?ффективн ого лечени�?</td>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -1208,7 +1211,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						3.1</td>
 					<td>
-						Л ТБ с БП  </td>
+						Л ТБ �? БП  </td>
 					<td>
 						${table1.failurePulmonaryBCDetected }</td>
 					<td>
@@ -1240,7 +1243,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						3.2</td>
 					<td>
-						Л ТБ с КУ</td>
+						Л ТБ �? КУ</td>
 					<td>
 						${table1.failurePulmonaryCDDetected }</td>
 					<td>
@@ -1337,7 +1340,7 @@ response.setDateHeader ("Expires", -1);
 					<td style="font: bold;">
 						4</td>
 					<td style="font: bold;">
-						После отрыва от лечения</td>
+						По�?ле отрыва от лечени�?</td>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -1365,7 +1368,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						4.1</td>
 					<td>
-						Л ТБ с БП  </td>
+						Л ТБ �? БП  </td>
 					<td>
 						${table1.defaultPulmonaryBCDetected }</td>
 					<td>
@@ -1397,7 +1400,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						4.2</td>
 					<td>
-						Л ТБ с КУ</td>
+						Л ТБ �? КУ</td>
 					<td>
 						${table1.defaultPulmonaryCDDetected }</td>
 					<td>
@@ -1522,7 +1525,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						5.1</td>
 					<td>
-						Л ТБ с БП  </td>
+						Л ТБ �? БП  </td>
 					<td>
 						${table1.otherPulmonaryBCDetected }</td>
 					<td>
@@ -1555,7 +1558,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						5.2</td>
 					<td>
-						Л ТБ с КУ</td>
+						Л ТБ �? КУ</td>
 					<td>
 						${table1.otherPulmonaryCDDetected }</td>
 					<td>
@@ -1683,7 +1686,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						&nbsp;</td>
 					<td>
-						Л ТБ с БП  </td>
+						Л ТБ �? БП  </td>
 					<td>
 						${table1.failurePulmonaryBCDetected + table1.defaultPulmonaryBCDetected + table1.otherPulmonaryBCDetected }</td>
 					<td>
@@ -1716,7 +1719,7 @@ response.setDateHeader ("Expires", -1);
 					<td>
 						&nbsp;</td>
 					<td>
-						Л ТБ с КУ </td>
+						Л ТБ �? КУ </td>
 					<td>
 						${table1.failurePulmonaryCDDetected + table1.defaultPulmonaryCDDetected + table1.otherPulmonaryCDDetected }</td>
 					<td>

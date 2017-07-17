@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+<%@ include file="/WEB-INF/view/module/dotsreports/include.jsp"%>
+<%@ include file="../dotsHeader.jsp"%>
 <%
 response.setHeader("Cache-Control","no-cache"); 
 response.setHeader("Pragma","no-cache"); 
@@ -26,7 +29,7 @@ response.setDateHeader ("Expires", -1);
 			<tr>
 				
 				<td width="90%" align="center" style="font-size:14px; font-weight:bold;border:0px">
-						Квартальный отчет о результатах лечения случаев ТБ, выявленных 12-15 месяцев назад
+						<spring:message code="dotsreports.tb08.title"/>
 				</td>
 				<td width="10%" align="right" style="font-size:14px; font-weight:bold;border:0px;" valign="top" border="0">&nbsp;</td>
 			</tr></table>

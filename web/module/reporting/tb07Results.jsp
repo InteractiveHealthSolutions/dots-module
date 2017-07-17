@@ -1,4 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/view/module/dotsreports/include.jsp"%>
+<%@ include file="../dotsHeader.jsp"%>
 <%
 response.setHeader("Cache-Control","no-cache"); 
 response.setHeader("Pragma","no-cache"); 
@@ -7,17 +9,33 @@ response.setDateHeader ("Expires", -1);
 <html>
 <head>
 	<title>TB 07</title>
+	<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+<script type="text/javascript">
+var tableToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>TB03</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    window.location.href = uri + base64(format(template, ctx))
+  }
+})()
+</script>
 </head>
 <body>
 <style type="text/css">th {vertical-align:top; text-align:left;}
 			th, td {font-size:smaller; border: 1px solid #000000}
 			border {border: 1px solid #000000}
 </style>
+<input type="button" onclick="tableToExcel('tb07', 'TB07')" value="Export to Excel" />
+<table id="tb07"><tr><td>
 <div style="font-size:smaller; width:980px;">
 <table border="0" width="100%">
 	<tbody>
 		<tr>
-			<td align="center" style="font-size:14px; font-weight:bold;border:0px" width="90%">Quarterly report on registration of detected TB cases</td>
+			<td align="center" style="font-size:14px; font-weight:bold;border:0px" width="90%"><spring:message code="dotsreports.tb07.title"/></td>
 			<td align="right" style="font-size:14px; font-weight:bold;border:0px" valign="top" width="10%">TB 07</td>
 		</tr>
 	</tbody>
@@ -26,15 +44,15 @@ response.setDateHeader ("Expires", -1);
 <table width="100%" border="1">
 <tr>
 <td>
-Name of facility:__________________</br>
-Region/district/city: <u> ${location } </u></br>
-Name of coordinator: ___________________ </br>
-Signature:_________________
+<spring:message code="dotsreports.tb07.nameOfFacility"/>__________________</br>
+<spring:message code="dotsreports.tb07.regionCityDistrict"/> <u> ${location } </u></br>
+<spring:message code="dotsreports.tb07.tbCoordinatorName"/> ___________________ </br>
+<spring:message code="dotsreports.tb07.signature"/>_________________
 </td>
 
 <td>
-Cases detected during quarter    <u> ${quarter } </u> of year <u> ${year } </u></br>
-Date of report: ${reportDate }
+<spring:message code="dotsreports.tb07.tbCasesDetectedDuringQuarterYear" arguments="${quarter},${year}" /></br>
+<spring:message code="dotsreports.tb07.dateOfReport"/> ${reportDate }
 </td>
 </tr>
 
@@ -43,12 +61,12 @@ Date of report: ${reportDate }
 
 
 
-<h5>Table 1: New cases and relapses (bacteriological confirmed or clinically diagnosed), detected during the reporting period</h5>
+<h5><spring:message code="dotsreports.tb07.table1.title"/></h5>
 	<table border="1" cellpadding="1" cellspacing="1" dir="ltr"
 			style="width: 980px;">
 			<tbody>
 				<tr>
-					<td colspan="2" rowspan="1">Type</td>
+					<td colspan="2" rowspan="1"><spring:message code="dotsreports.tb07.type"/></td>
 					<td colspan="2" rowspan="1" style="text-align: center;">0-4</td>
 					<td colspan="2" rowspan="1" style="text-align: center;">5-14</td>
 					<td colspan="2" rowspan="1" style="text-align: center;">15-17</td>
@@ -59,50 +77,42 @@ Date of report: ${reportDate }
 					<td colspan="2" rowspan="1" style="text-align: center;">45-54</td>
 					<td colspan="2" rowspan="1" style="text-align: center;">55-64</td>
 					<td colspan="2" rowspan="1" style="text-align: center;">&gt;65</td>
-					<td colspan="3" rowspan="1" style="text-align: center;">Total</td>
+					<td colspan="3" rowspan="1" style="text-align: center;"><spring:message code="dotsreports.tb07.total"/></td>
 				</tr>
 				<tr>
 
 					<td style="text-align: center;">&nbsp;</td>
 					<td style="text-align: center;">&nbsp;</td>
-					<td style="text-align: center;width: 3%">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">M</td>
-					<td style="text-align: center;">F</td>
-					<td style="text-align: center;">Total</td>
+					<td style="text-align: center;width: 3%"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.maleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+					<td style="text-align: center;"><spring:message code="dotsreports.tb07.total"/></td>
 					
 				</tr>
 				<tr>
 					<td rowspan="6">
-						<div>N</div>
-						<div>e</div>
-						<div>w</div>
-						<div></div>
-						<div>C</div>
-						<div>a</div>
-						<div>s</div>
-						<div>e</div>
-						<div>s</div>
+						<spring:message code="dotsreports.tb07.new" />
 					</td>
-					<td>P TB with BC</td>
+					<td><spring:message code="dotsreports.tb07.pulmonaryBC" /></td>
 					
 					<td>${table1.newMalePulmonaryBC04}</td>
 					<td>${table1.newFemalePulmonaryBC04}</td>
@@ -145,7 +155,7 @@ Date of report: ${reportDate }
 					<td>${table1.newPulmonaryBC}</td>                       
 				</tr>
 				<tr>
-					<td>Of these HIV </td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /> </td>
 					
 					<td>${table1.newMalePulmonaryBCHIV04}</td>
 					<td>${table1.newFemalePulmonaryBCHIV04}</td>
@@ -189,7 +199,7 @@ Date of report: ${reportDate }
 					                   
 				</tr>
 				<tr>
-					<td>P TB with CD </td>
+					<td><spring:message code="dotsreports.tb07.pulmonaryCD" /> </td>
 					<td>${table1.newMalePulmonaryCD04}</td>
 					<td>${table1.newFemalePulmonaryCD04}</td>
 					
@@ -231,7 +241,7 @@ Date of report: ${reportDate }
 					<td>${table1.newPulmonaryCD}</td>                         
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.newMalePulmonaryCDHIV04}</td>
 					<td>${table1.newFemalePulmonaryCDHIV04}</td>
 					
@@ -273,7 +283,7 @@ Date of report: ${reportDate }
 					<td>${table1.newPulmonaryCDHIV}</td>                      
 				</tr>
 				<tr>
-					<td>EP TB</td>
+					<td><spring:message code="dotsreports.tb07.eptb" /></td>
 					<td>${table1.newMaleExtrapulmonary04}</td>
 					<td>${table1.newFemaleExtrapulmonary04}</td>
 					
@@ -315,7 +325,7 @@ Date of report: ${reportDate }
 					<td>${table1.newExtrapulmonary}</td>                   
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.newMaleExtrapulmonaryHIV04}</td>
 					<td>${table1.newFemaleExtrapulmonaryHIV04}</td>
 					
@@ -357,7 +367,7 @@ Date of report: ${reportDate }
 					<td>${table1.newExtrapulmonaryHIV}</td>  
 				</tr>
 				<tr>
-					<td colspan="2" align="left">Total</td>
+					<td colspan="2" align="left"><spring:message code="dotsreports.tb07.total"/></td>
 
 					<td>${table1.newMale04}</td>
 					<td>${table1.newFemale04}</td>
@@ -400,7 +410,7 @@ Date of report: ${reportDate }
 					<td>${table1.newAll}</td> 
 				</tr>
 				<tr>
-					<td colspan="2">Of these HIV</td>
+					<td colspan="2"><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 
 					<td>${table1.newMaleHIV04}</td>
 					<td>${table1.newFemaleHIV04}</td>
@@ -472,16 +482,9 @@ Date of report: ${reportDate }
 				</tr>
 				<tr>
 					<td rowspan="6">
-						<div>R</div>
-						<div>e</div>
-						<div>l</div>
-						<div>a</div>
-						<div>p</div>
-						<div>s</div>
-						<div>e</div>
-						<div>s</div>
+						<spring:message code="dotsreports.tb07.relapses" />
 					</td>
-						<td>P TB with BC</td>
+						<td><spring:message code="dotsreports.tb07.pulmonaryBC" /></td>
 					<td>${table1.relapseMalePulmonaryBC04}</td>
 					<td>${table1.relapseFemalePulmonaryBC04}</td>
 					
@@ -523,7 +526,7 @@ Date of report: ${reportDate }
 					<td>${table1.relapsePulmonaryBC}</td>                       
 				</tr>
 				<tr>
-					<td>Of these HIV </td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /> </td>
 					
 					<td>${table1.relapseMalePulmonaryBCHIV04}</td>
 					<td>${table1.relapseFemalePulmonaryBCHIV04}</td>
@@ -567,7 +570,7 @@ Date of report: ${reportDate }
 					                   
 				</tr>
 				<tr>
-					<td>P TB with CD </td>
+					<td><spring:message code="dotsreports.tb07.pulmonaryCD" /> </td>
 					<td>${table1.relapseMalePulmonaryCD04}</td>
 					<td>${table1.relapseFemalePulmonaryCD04}</td>
 					
@@ -609,7 +612,7 @@ Date of report: ${reportDate }
 					<td>${table1.relapsePulmonaryCD}</td>                         
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.relapseMalePulmonaryCDHIV04}</td>
 					<td>${table1.relapseFemalePulmonaryCDHIV04}</td>
 					
@@ -653,7 +656,7 @@ Date of report: ${reportDate }
 				</tr>
 				</tr>
 				<tr>
-					<td>EP TB</td>
+					<td><spring:message code="dotsreports.tb07.eptb" /></td>
 					<td>${table1.relapseMaleExtrapulmonary04}</td>
 					<td>${table1.relapseFemaleExtrapulmonary04}</td>
 					
@@ -695,7 +698,7 @@ Date of report: ${reportDate }
 					<td>${table1.relapseExtrapulmonary}</td>                   
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.relapseMaleExtrapulmonaryHIV04}</td>
 					<td>${table1.relapseFemaleExtrapulmonaryHIV04}</td>
 					
@@ -738,7 +741,7 @@ Date of report: ${reportDate }
 					                   
 				</tr>
 				<tr>
-					<td colspan="2" align="left">Total</td>
+					<td colspan="2" align="left"><spring:message code="dotsreports.tb07.total"/></td>
 					<td>${table1.relapseMale04}</td>
 					<td>${table1.relapseFemale04}</td>
 					
@@ -780,7 +783,7 @@ Date of report: ${reportDate }
 					<td>${table1.relapseAll}</td> 
 				</tr>
 				<tr>
-					<td colspan="2">Of these HIV</td>
+					<td colspan="2"><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 
 					<td>${table1.relapseMaleHIV04}</td>
 					<td>${table1.relapseFemaleHIV04}</td>
@@ -850,17 +853,9 @@ Date of report: ${reportDate }
 				</tr>
 				<tr>
 					<td rowspan="6">
-						<div>T</div>
-						<div>o</div>
-						<div>t</div>
-						<div>a</div>
-						<div>l</div>
-						<div>=</div>
-						<div>NC</div>
-						<div>+</div>
-						<div>R</div>
+						<spring:message code="dotsreports.tb07.totalNewRelapse" />
 					</td>
-					<td>P TB with BC</td>
+					<td><spring:message code="dotsreports.tb07.pulmonaryBC" /></td>
 					<td>${table1.newMalePulmonaryBC04 + table1.relapseMalePulmonaryBC04 }</td>
 					<td>${table1.newFemalePulmonaryBC04 + table1.relapseFemalePulmonaryBC04 }</td>
 					<td>${table1.newMalePulmonaryBC0514 + table1.relapseMalePulmonaryBC0514 }</td>
@@ -887,7 +882,7 @@ Date of report: ${reportDate }
 					
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.newMalePulmonaryBCHIV04 + table1.relapseMalePulmonaryBCHIV04 }</td>
 					<td>${table1.newFemalePulmonaryBCHIV04 + table1.relapseFemalePulmonaryBCHIV04 }</td>
 					<td>${table1.newMalePulmonaryBCHIV0514 + table1.relapseMalePulmonaryBCHIV0514 }</td>
@@ -914,7 +909,7 @@ Date of report: ${reportDate }
 					                   
 				</tr>
 				<tr>
-					<td>P TB with CD </td>
+					<td><spring:message code="dotsreports.tb07.pulmonaryCD" /> </td>
 					<td>${table1.newMalePulmonaryCD04 + table1.relapseMalePulmonaryCD04 }</td>
 					<td>${table1.newFemalePulmonaryCD04 + table1.relapseFemalePulmonaryCD04 }</td>
 					<td>${table1.newMalePulmonaryCD0514 + table1.relapseMalePulmonaryCD0514 }</td>
@@ -941,7 +936,7 @@ Date of report: ${reportDate }
 					
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.newMalePulmonaryCDHIV04 + table1.relapseMalePulmonaryCDHIV04 }</td>
 					<td>${table1.newFemalePulmonaryCDHIV04 + table1.relapseFemalePulmonaryCDHIV04 }</td>
 					<td>${table1.newMalePulmonaryCDHIV0514 + table1.relapseMalePulmonaryCDHIV0514 }</td>
@@ -967,7 +962,7 @@ Date of report: ${reportDate }
 					<td>${table1.newPulmonaryCDHIV + table1.relapsePulmonaryCDHIV }
 				</tr>
 				<tr>
-					<td>EP TB</td>
+					<td><spring:message code="dotsreports.tb07.eptb" /></td>
 					<td>${table1.newMaleExtrapulmonary04 + table1.relapseMaleExtrapulmonary04 }</td>
 					<td>${table1.newFemaleExtrapulmonary04 + table1.relapseFemaleExtrapulmonary04 }</td>
 					<td>${table1.newMaleExtrapulmonary0514 + table1.relapseMaleExtrapulmonary0514 }</td>
@@ -994,7 +989,7 @@ Date of report: ${reportDate }
 					
 				</tr>
 				<tr>
-					<td>Of these HIV</td>
+					<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 					<td>${table1.newMaleExtrapulmonaryHIV04 + table1.relapseMaleExtrapulmonaryHIV04 }</td>
 					<td>${table1.newFemaleExtrapulmonaryHIV04 + table1.relapseFemaleExtrapulmonaryHIV04 }</td>
 					<td>${table1.newMaleExtrapulmonaryHIV0514 + table1.relapseMaleExtrapulmonaryHIV0514 }</td>
@@ -1020,7 +1015,7 @@ Date of report: ${reportDate }
 					<td>${table1.newExtrapulmonaryHIV + table1.relapseExtrapulmonaryHIV }
 				</tr>
 				<tr>
-					<td colspan="2" align="left">Total</td>
+					<td colspan="2" align="left"><spring:message code="dotsreports.tb07.total"/></td>
 
 					<td>${table1.newMale04 + table1.relapseMale04 }</td>
 					<td>${table1.newFemale04 + table1.relapseFemale04 }</td>
@@ -1047,7 +1042,7 @@ Date of report: ${reportDate }
 					<td>${table1.newAll + table1.relapseAll }</td>
 				</tr>
 				<tr>
-					<td colspan="2">Of these HIV</td>
+					<td colspan="2"><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 
 					<td>${table1.newMaleHIV04 + table1.relapseMaleHIV04 }</td>
 					<td>${table1.newFemaleHIV04 + table1.relapseFemaleHIV04 }</td>
@@ -1077,47 +1072,45 @@ Date of report: ${reportDate }
 
 			</tbody>
 		</table>
-<p>Of all new cases (bacteriological confirmed or clinically diagnosed), detected during the quarter: women of childbearing age (15-49)  _______, of which pregnant ____; contacts ______; migrants ________; 
-employees of PHC  ______; employees of TB services  ________.  
-Died: Among the contingent registered: died _________, among them: children  ________, women of childbearing age (15-49) ___________. </p>
+<p><spring:message code="dotsreports.tb07.table1.footnote" /> </p>
 		
-</div>
 
-<h5>Table 2: All retreatment cases (bacteriologically confirmed or clinically diagnosed), detected during the reporting period   </h5>
+
+<h5><spring:message code="dotsreports.tb07.table2.title" /></h5>
 <table style="width: 900px;" border="1">
 <tbody>
 <tr>
 <td>&nbsp;</td>
-<td style="text-align: center;" colspan="3">After Failure</td>
-<td style="text-align: center;" colspan="3">After Default</td>
+<td style="text-align: center;" colspan="3"><spring:message code="dotsreports.tb07.afterFailure"/></td>
+<td style="text-align: center;" colspan="3"><spring:message code="dotsreports.tb07.afterDefault"/></td>
 <td style="text-align: center;" colspan="3">Others</td>
-<td style="text-align: center;" colspan="3">Total</td>
+<td style="text-align: center;" colspan="3"><spring:message code="dotsreports.tb07.total"/></td>
 <td colspan="3">
-<p style="text-align: center;">Total</p>
-<p style="text-align: center;">(T1+T2)</p>
+<p style="text-align: center;"><spring:message code="dotsreports.tb07.total"/></p>
+<p style="text-align: center;"><spring:message code="dotsreports.tb07.t1t2"/>)</p>
 </td>
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td align="center">M</td>
-<td align="center">F</td>
-<td align="center">Total</td>
-<td align="center">M</td>
-<td align="center">F</td>
-<td align="center">Total</td>
-<td align="center">M</td>
-<td align="center">F</td>
-<td align="center">Total</td>
-<td align="center">M</td>
-<td align="center">F</td>
-<td align="center">Total</td>
-<td align="center">M</td>
-<td align="center">F</td>
-<td align="center">Total</td>
+<td align="center"><spring:message code="dotsreports.tb07.maleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.total"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.maleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.total"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.maleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.total"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.maleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.total"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.maleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.femaleShort"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.total"/></td>
 </tr>
 <tr>
 <td>
-<p>P TB with BC</p>
+<p><spring:message code="dotsreports.tb07.pulmonaryBC" /></p>
 </td>
 <td>${table1.failureMalePulmonaryBC}</td>
 <td>${table1.failureFemalePulmonaryBC}</td>
@@ -1137,7 +1130,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
                       
 </tr>
 <tr>
-<td>Of these HIV</td>
+<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 <td>${table1.failureMalePulmonaryBCHIV}</td>
 <td>${table1.failureFemalePulmonaryBCHIV}</td>
 <td>${table1.failurePulmonaryBCHIV}</td>
@@ -1155,7 +1148,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 <td>${table1.totalPulmonaryBCHIV}</td>
 </tr>
 <tr>
-<td>P TB with CD </td>
+<td><spring:message code="dotsreports.tb07.pulmonaryCD" /> </td>
 <td>${table1.failureMalePulmonaryCD}</td>
 <td>${table1.failureFemalePulmonaryCD}</td>
 <td>${table1.failurePulmonaryCD}</td>
@@ -1173,7 +1166,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 <td>${table1.totalPulmonaryCD}</td>
 </tr>
 <tr>
-<td>Of these HIV&nbsp;</td>
+<td><spring:message code="dotsreports.tb07.ofTheseHIV" />&nbsp;</td>
 <td>${table1.failureMalePulmonaryCDHIV}</td>
 <td>${table1.failureFemalePulmonaryCDHIV}</td>
 <td>${table1.failurePulmonaryCDHIV}</td>
@@ -1191,7 +1184,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 <td>${table1.totalPulmonaryCDHIV}</td>
 </tr>
 <tr>
-<td>EP TB</td>
+<td><spring:message code="dotsreports.tb07.eptb" /></td>
 <td>${table1.failureMaleExtrapulmonary}</td>
 <td>${table1.failureFemaleExtrapulmonary}</td>
 <td>${table1.failureExtrapulmonary}</td>
@@ -1209,7 +1202,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 <td>${table1.totalExtrapulmonary}</td>
 </tr>
 <tr>
-<td>Of these HIV</td>
+<td><spring:message code="dotsreports.tb07.ofTheseHIV" /></td>
 <td>${table1.failureMaleExtrapulmonaryHIV}</td>
 <td>${table1.failureFemaleExtrapulmonaryHIV}</td>
 <td>${table1.failureExtrapulmonaryHIV}</td>
@@ -1226,7 +1219,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 <td>${table1.totalFemaleExtrapulmonaryHIV}</td>
 <td>${table1.totalExtrapulmonaryHIV}</td>
 <tr>
-<td style="margin-left: 30px; text-align: center;"><strong>Total</strong></td>
+<td style="margin-left: 30px; text-align: center;"><strong><spring:message code="dotsreports.tb07.total"/></strong></td>
 <td>${table1.failureMale}</td>
 <td>${table1.failureFemale}</td>
 <td>${table1.failureAll}</td>
@@ -1245,7 +1238,7 @@ Died: Among the contingent registered: died _________, among them: children  ___
 </tr>
 
 <tr>
-<td style="text-align: center;"><strong>Of these HIV</strong></td>
+<td style="text-align: center;"><strong><spring:message code="dotsreports.tb07.ofTheseHIV" /></strong></td>
 <td>${table1.failureMaleHIV}</td>
 <td>${table1.failureFemaleHIV}</td>
 <td>${table1.failureAllHIV}</td>
@@ -1270,14 +1263,14 @@ Died: Among the contingent registered: died _________, among them: children  ___
 </table>
 
 <br/><br/>
-<h5>Table 3: TB/HIV activities among all TB cases registered during the reporting period</h5>
+<h5><spring:message code="dotsreports.tb07.table3.title" /></h5>
 <table style="width: 900px;" border="1">
 <tbody>	
 <tr>
-<td align="center">Number of TB cases tested for HIV</td>
-<td align="center">of total tested, number of HIV<br/>confirmed, total</td>
-<td align="center">of total confirmed, receive ART,<br/>total</td>
-<td align="center">of total confirmed, receive PTC,<br/>total</td>
+<td align="center"><spring:message code="dotsreports.tb07.testedForHIV"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.confirmedHIV"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.artStarted"/></td>
+<td align="center"><spring:message code="dotsreports.tb07.ptcStarted"/></td>
 </tr>
 <tr>
 <td align="center">${table1.hivTested }</td>
@@ -1287,7 +1280,8 @@ Died: Among the contingent registered: died _________, among them: children  ___
 </tr>
 </tbody>
 </table>
-	
+</div>
+</td></tr></table>	
 
 </body>
 </html>

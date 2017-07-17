@@ -31,6 +31,7 @@ import org.openmrs.module.dotsreports.reporting.ReportUtil;
 
 import org.openmrs.module.dotsreports.reporting.TB07Table1Data;
 import org.openmrs.module.dotsreports.reporting.TB07Util;
+import org.openmrs.module.dotsreports.reporting.TB08Data;
 import org.openmrs.module.dotsreports.reporting.data.Cohorts;
 import org.openmrs.module.dotsreports.service.TbService;
 
@@ -85,7 +86,7 @@ public class TB07Controller {
     
 
     @RequestMapping(method=RequestMethod.POST, value="/module/dotsreports/reporting/tb07")
-    public String doTB03(
+    public String doTB07(
     		@RequestParam("location") Location location,
     		@RequestParam("oblast") String oblast,
             @RequestParam(value="year", required=true) Integer year,
@@ -107,7 +108,34 @@ public class TB07Controller {
 		else if (location != null)
 			locList.add(location);
 		
-		Map<String, Date> dateMap = ReportUtil.getPeriodDates(year, quarter, month);
+		int iterations = 1;
+		
+		TB07Table1Data fin = new TB07Table1Data();
+		
+		if((month==null || month=="") && (quarter==null || quarter==""))
+			iterations = 4;
+		
+		else
+			iterations = 1;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat();
+    	sdf.applyPattern("dd.MM.yyyy");
+		
+		for(int j=0; j<iterations; j++) {	
+			
+			Map<String, Date> dateMap;
+			
+			if((month==null || month=="") && (quarter==null || quarter==""))	 {
+				
+				dateMap = ReportUtil.getPeriodDates(year, (j + 1) + "", month);
+				
+			}
+			
+			else 
+				dateMap = ReportUtil.getPeriodDates(year, quarter, month);
+		
+		
+		
 		
 		Date startDate = (Date)(dateMap.get("startDate"));
 		Date endDate = (Date)(dateMap.get("endDate"));
@@ -145,8 +173,7 @@ public class TB07Controller {
     	System.out.println("PATIENTS: " + idSet.size());
     	
     	//ArrayList<TB03Data> patientSet  = new ArrayList<TB03Data>();
-    	SimpleDateFormat sdf = new SimpleDateFormat();
-    	sdf.applyPattern("dd.MM.yyyy");
+    	
     	
     	ArrayList<Person> patientList = new ArrayList<Person>();
     	ArrayList<Concept> conceptQuestionList = new ArrayList<Concept>();
@@ -1779,13 +1806,16 @@ public class TB07Controller {
     	table1.setTotalAllHIV(table1.getTotalMaleHIV() + table1.getTotalFemaleHIV());
     	//table1.setTotalAll(table1.getTotalMale() + getTotalFemale());
     	
+    	fin.add(table1);
+		}
     	
-    	model.addAttribute("table1", table1);
+    	model.addAttribute("table1", fin);
     	model.addAttribute("location", location);
     	model.addAttribute("year", year);
     	model.addAttribute("quarter", quarter);
     	model.addAttribute("reportDate", sdf.format(new Date()));
-        return "/module/dotsreports/reporting/tb07Results_" + Context.getLocale().toString().substring(0, 2);
+        return "/module/dotsreports/reporting/tb07Results";
+        //_" + Context.getLocale().toString().substring(0, 2);
     }
     
     

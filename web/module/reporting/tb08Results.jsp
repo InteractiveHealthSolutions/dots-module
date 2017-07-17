@@ -1,4 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/view/module/dotsreports/include.jsp"%>
+<%@ include file="../dotsHeader.jsp"%>
 <%
 response.setHeader("Cache-Control","no-cache"); 
 response.setHeader("Pragma","no-cache"); 
@@ -46,7 +48,7 @@ var tableToExcel = (function() {
 			<tr>
 				
 				<td width="90%" align="center" style="font-size:14px; font-weight:bold;border:0px">
-						Quarterly report on results of treatment of TB cases registered 12-15 months ago
+						<spring:message code="dotsreports.tb08.title"/>
 				</td>
 				<td width="10%" align="right" style="font-size:14px; font-weight:bold;border:0px;" valign="top" border="0">&nbsp;</td>
 			</tr></table>
@@ -54,14 +56,14 @@ var tableToExcel = (function() {
 		<table border="1" width="100%">
 		<tr>
 		<td>
-		Name of facility:______________________ <br/>
-		Region/city/district  <u> ${ location } </u><br/>
-		Name of TB coordinator ____________________Signature ____________<br/>
+		<spring:message code="dotsreports.tb08.nameOfFacility"/>______________________ <br/>
+		<spring:message code="dotsreports.tb08.regionCityDistrict"/>  <u> ${ location } </u><br/>
+		<spring:message code="dotsreports.tb08.tbCoordinator"/> ____________________<spring:message code="dotsreports.tb08.signature"/> ____________<br/>
 		</td>
 		
 		<td>
-		TB cases detected during quarter  <u> ${ quarter } </u> of year  <u> ${ year } </u> <br/>
-		Date of report: ${reportDate }
+		<spring:message code="dotsreports.tb08.tbCasesDetectedDuringQuarterYear" arguments="${quarter},${year}"/> <br/>
+		<spring:message code="dotsreports.tb08.dateOfReport"/> ${reportDate }
 		</td>
 		</tr>
 		</table>	
@@ -76,66 +78,55 @@ var tableToExcel = (function() {
 					<td rowspan="2">
 						&nbsp;</td>
 					<td rowspan="2" style="text-align: center;">
-						TB cases detected, total</td>
+						<spring:message code="dotsreports.tb08.totatTBCasesDetected"/></td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Cohort eligible for evaluation &nbsp;</div>
+							<spring:message code="dotsreports.tb08.eligibleCohort"/> &nbsp;</div>
 						
 					</td>
 					<td rowspan="2" style="text-align: center;">
-						Cured</td>
+						<spring:message code="dotsreports.tb08.cured"/></td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Treatment&nbsp;</div>
-						<div style="text-align: center;">
-							completed &nbsp;</div>
+							<spring:message code="dotsreports.tb08.txCompleted"/></div>
 					</td>
 					<td colspan="2" rowspan="1">
 						<div style="text-align: center;">
-							Died &nbsp;</div>
-						<p style="text-align: center;">
-							&nbsp;</p>
+							<spring:message code="dotsreports.tb08.died"/> &nbsp;</div>
+						
 					</td>
 					<td rowspan="2" style="text-align: center;">
-						Treatment failure</td>
+						<spring:message code="dotsreports.tb08.txFailure"/></td>
 					<td rowspan="2" style="text-align: center;">
-						Lost to follow-up</td>
+						<spring:message code="dotsreports.tb08.ltfu"/></td>
 					
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Total &nbsp;</div>
-						<div style="text-align: center;">
-							(3+4+5+6+7+8)&nbsp;</div>
+							<spring:message code="dotsreports.tb08.totalEvaluated"/>&nbsp;</div>
 						
 					</td>
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Started treatment on </div>
-						<div style="text-align: center;">
-							Regimen II&nbsp;</div>
+							<spring:message code="dotsreports.tb08.startedSLD"/>&nbsp;</div>
 					</td>
 					
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Diagnosis &nbsp;</div>
-						<div style="text-align: center;">
-							Cancelled&nbsp;</div>
+							<spring:message code="dotsreports.tb08.canceled"/> &nbsp;</div>
 					</td>
 					
 					<td rowspan="2">
 						<div style="text-align: center;">
-							Result not &nbsp;</div>
-						<div style="text-align: center;">
-							Evaluated&nbsp;</div>
+							<spring:message code="dotsreports.tb08.notEvaluated"/>&nbsp;</div>
 						
 					</td>
 					
 				</tr>
 				<tr align="center">
 					<td>
-						TB</td>
+						<spring:message code="dotsreports.tb08.tb"/></td>
 					<td>
-						Non-TB</td>
+						<spring:message code="dotsreports.tb08.nontb"/></td>
 					
 				</tr>
 				<tr align="center">
@@ -171,7 +162,7 @@ var tableToExcel = (function() {
 					<td style="font: bold;">
 						1</td>
 					<td style="font: bold;">
-						New Cases</td>
+						<spring:message code="dotsreports.tb08.newCases"/></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -192,7 +183,7 @@ var tableToExcel = (function() {
 					<td>
 						1.1</td>
 					<td>
-						PTB with BC&nbsp;</td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/>&nbsp;</td>
 					<td>
 						${table1.newPulmonaryBCDetected }</td>
 					<td>
@@ -318,7 +309,7 @@ var tableToExcel = (function() {
 					<td>
 						1.2</td>
 					<td>
-						PTB with CD </td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/> </td>
 					<td>
 						${table1.newPulmonaryCDDetected }</td>
 					<td>
@@ -443,7 +434,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;1.3</td>
 					<td>
-						EP TB</td>
+						<spring:message code="dotsreports.tb08.eptb"/></td>
 					<td>
 						${table1.newExtrapulmonaryDetected }</td>
 					<td>
@@ -565,7 +556,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td style="font: bold;">
-						Total(1.1+1.2+1.3)</td>
+						<spring:message code="dotsreports.tb08.total1" /></td>
 					<td>
 						${ table1.newPulmonaryBCDetected + table1.newPulmonaryCDDetected + table1.newExtrapulmonaryDetected }</td>
 					<td>
@@ -688,7 +679,7 @@ var tableToExcel = (function() {
 					<td style="font: bold;">
 						2</td>
 					<td style="font: bold;">
-						Relapses</td>
+						<spring:message code="dotsreports.tb08.relapses"/></td>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -716,7 +707,7 @@ var tableToExcel = (function() {
 					<td>
 						2.1</td>
 					<td>
-						PTB with BC</td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/></td>
 					<td>
 						${table1.relapsePulmonaryBCDetected }</td>
 					<td>
@@ -835,7 +826,7 @@ var tableToExcel = (function() {
 					<td>
 						2.2</td>
 					<td>
-						PTB with CD </td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/> </td>
 					<td>
 						${table1.relapsePulmonaryCDDetected }</td>
 					<td>
@@ -958,7 +949,7 @@ var tableToExcel = (function() {
 					<td>
 						2.3</td>
 					<td>
-						EP TB </td>
+						<spring:message code="dotsreports.tb08.eptb"/> </td>
 					<td>
 						${table1.relapseExtrapulmonaryDetected }</td>
 					<td>
@@ -1080,7 +1071,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td style="font:bold;">
-					Total(2.1+2.2+2.3)</td>
+					<spring:message code="dotsreports.tb08.total2"/></td>
 					<td>
 						${ table1.relapsePulmonaryBCDetected + table1.relapsePulmonaryCDDetected + table1.relapseExtrapulmonaryDetected }</td>
 					<td>
@@ -1205,7 +1196,7 @@ var tableToExcel = (function() {
 					<td style="font: bold;">
 						3</td>
 					<td style="font: bold;">
-						After treatment failure</td>
+						<spring:message code="dotsreports.tb08.afterFailure"/></td>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -1236,7 +1227,7 @@ var tableToExcel = (function() {
 					<td>
 						3.1</td>
 					<td>
-						PTB with BC </td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/> </td>
 					<td>
 						${table1.failurePulmonaryBCDetected }</td>
 					<td>
@@ -1269,7 +1260,7 @@ var tableToExcel = (function() {
 					<td>
 						3.2</td>
 					<td>
-						PTB with CD</td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/></td>
 					<td>
 						${table1.failurePulmonaryCDDetected }</td>
 					<td>
@@ -1300,7 +1291,7 @@ var tableToExcel = (function() {
 					<td>
 						3.3</td>
 					<td>
-						EP TB</td>
+						<spring:message code="dotsreports.tb08.eptb"/></td>
 					<td>
 						${table1.failureExtrapulmonaryDetected }</td>
 					<td>
@@ -1331,7 +1322,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td style="font: bold;">
-						<b>Total</b></td>
+						<b><spring:message code="dotsreports.tb08.total"/></b></td>
 					<td>
 						${ table1.failurePulmonaryBCDetected + table1.failurePulmonaryCDDetected + table1.failureExtrapulmonaryDetected }</td>
 					<td>
@@ -1363,7 +1354,7 @@ var tableToExcel = (function() {
 					<td style="font: bold;">
 						4</td>
 					<td style="font: bold;">
-						After treatment default</td>
+						<spring:message code="dotsreports.tb08.afterDefault"/>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -1391,7 +1382,7 @@ var tableToExcel = (function() {
 					<td>
 						4.1</td>
 					<td>
-						PTB with BC </td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/> </td>
 					<td>
 						${table1.defaultPulmonaryBCDetected }</td>
 					<td>
@@ -1423,7 +1414,7 @@ var tableToExcel = (function() {
 					<td>
 						4.2</td>
 					<td>
-						PTB with CD</td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/></td>
 					<td>
 						${table1.defaultPulmonaryCDDetected }</td>
 					<td>
@@ -1457,7 +1448,7 @@ var tableToExcel = (function() {
 					<td>
 						4.3</td>
 					<td>
-						EP TB</td>
+						<spring:message code="dotsreports.tb08.eptb"/></td>
 					<td>
 						${table1.defaultExtrapulmonaryDetected }</td>
 					<td>
@@ -1490,7 +1481,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td style="font: bold;">
-						<b>Total</b></td>
+						<b><spring:message code="dotsreports.tb08.total"/></b></td>
 					<td>
 						${ table1.defaultPulmonaryBCDetected + table1.defaultPulmonaryCDDetected + table1.defaultExtrapulmonaryDetected }</td>
 					<td>
@@ -1523,7 +1514,7 @@ var tableToExcel = (function() {
 					<td style="font: bold;">
 						5</td>
 					<td style="font: bold;">
-						Other</td>
+						<spring:message code="dotsreports.tb08.other"/></td>
 					<td>
 						&nbsp;</td>
 					<td>
@@ -1552,7 +1543,7 @@ var tableToExcel = (function() {
 					<td>
 						5.1</td>
 					<td>
-						PTB with BC </td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/> </td>
 					<td>
 						${table1.otherPulmonaryBCDetected }</td>
 					<td>
@@ -1584,7 +1575,7 @@ var tableToExcel = (function() {
 					<td>
 						5.2</td>
 					<td>
-						PTB with CD</td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/></td>
 					<td>
 						${table1.otherPulmonaryCDDetected }</td>
 					<td>
@@ -1616,7 +1607,7 @@ var tableToExcel = (function() {
 					<td>
 						5.3</td>
 					<td>
-						EP TB</td>
+						<spring:message code="dotsreports.tb08.eptb"/></td>
 					<td>
 						${table1.otherExtrapulmonaryDetected }</td>
 					<td>
@@ -1647,7 +1638,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td style="font: bold;">
-						<b>Total</b></td>
+						<b><spring:message code="dotsreports.tb08.total"/></b></td>
 					<td>
 						${ table1.otherPulmonaryBCDetected + table1.otherPulmonaryCDDetected + table1.otherExtrapulmonaryDetected }</td>
 					<td>
@@ -1681,7 +1672,7 @@ var tableToExcel = (function() {
 				     <td>&nbsp;
 						</td>
 					<td style="font: bold;">
-						Total (3 + 4 + 5)</td>
+						<spring:message code="dotsreports.tb08.totalRetreatments"/></td>
 					
 					<td>
 						&nbsp;</td>
@@ -1710,7 +1701,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td>
-						PTB with BC </td>
+						<spring:message code="dotsreports.tb08.pulmonaryBC"/> </td>
 					<td>
 						${table1.failurePulmonaryBCDetected + table1.defaultPulmonaryBCDetected + table1.otherPulmonaryBCDetected }</td>
 					<td>
@@ -1743,7 +1734,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td>
-						PTB with CD </td>
+						<spring:message code="dotsreports.tb08.pulmonaryCD"/> </td>
 					<td>
 						${table1.failurePulmonaryCDDetected + table1.defaultPulmonaryCDDetected + table1.otherPulmonaryCDDetected }</td>
 					<td>
@@ -1775,7 +1766,7 @@ var tableToExcel = (function() {
 					<td>
 						&nbsp;</td>
 					<td>
-						EP TB</td>
+						<spring:message code="dotsreports.tb08.eptb"/></td>
 					<td>
 						${table1.failureExtrapulmonaryDetected + table1.defaultExtrapulmonaryDetected + table1.otherExtrapulmonaryDetected }</td>
 					<td>
@@ -1808,7 +1799,7 @@ var tableToExcel = (function() {
 					<td>&nbsp;
 						</td>
 					<td style="font: bold;">
-						Total (3.1+3.2+3.3+<br/>4.1.4.2.4.3<br/>+5.1+5.2+5.3) </td>
+						<spring:message code="dotsreports.tb08.retreatmentTotalBreakdown" /></td>
 					
 					<td>
 						${table1.failureAllDetected + table1.defaultAllDetected + table1.otherAllDetected }</td>

@@ -3221,7 +3221,8 @@ public class TB08Controller {
     	model.addAttribute("year", year);
     	model.addAttribute("quarter", quarter);
     	model.addAttribute("reportDate", sdf.format(new Date()));
-        return "/module/dotsreports/reporting/tb08Results_" + Context.getLocale().toString().substring(0, 2);
+        return "/module/dotsreports/reporting/tb08Results";
+        //_" + Context.getLocale().toString().substring(0, 2);
     }
     
     
