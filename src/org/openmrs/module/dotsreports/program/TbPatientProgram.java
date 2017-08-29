@@ -25,8 +25,6 @@ import org.openmrs.module.dotsreports.regimen.Regimen;
 import org.openmrs.module.dotsreports.regimen.RegimenUtils;
 import org.openmrs.module.dotsreports.service.TbService;
 import org.openmrs.module.dotsreports.specimen.Specimen;
-import org.openmrs.module.dotsreports.TbConcepts;
-import org.openmrs.module.dotsreports.service.TbService;
 
 
 public class TbPatientProgram implements Comparable<TbPatientProgram> {

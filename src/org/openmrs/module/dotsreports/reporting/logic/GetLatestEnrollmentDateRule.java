@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.logic.LogicContext;
 import org.openmrs.logic.LogicException;
 import org.openmrs.logic.Rule;
@@ -13,12 +14,7 @@ import org.openmrs.logic.rule.RuleParameterInfo;
 
 public class GetLatestEnrollmentDateRule implements Rule {
     
-    /**
-     * @see org.openmrs.logic.Rule#eval(org.openmrs.logic.LogicContext, org.openmrs.Patient,
-     *      java.util.Map)
-     */
-    public Result eval(LogicContext context, Patient patient, Map<String, Object> parameters) throws LogicException {
-        
+	public Result eval(LogicContext context, Patient patient, Map<String, Object> parameters) throws LogicException {
         Result lastProgram = context.read(patient, context.getLogicDataSource("pihprogram"), "MDR-TB PROGRAM");
         return lastProgram;
         

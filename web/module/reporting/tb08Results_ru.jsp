@@ -1963,9 +1963,10 @@ response.setDateHeader ("Expires", -1);
 			</table>
 		</div>
 		
-		<input type="button" onclick="tableToExcel('tb08', 'TB08')" value="Export to Excel" />
-		<!-- <input type="button" id="tableToPdf" name="tableToPdf" value="Export to Pdf" /> -->
-		<input type="button" id="tableToSql" name="tableToSql" value="Close Report" />
+		<input type="button" onclick="tableToExcel('tb08', 'TB08')" value="<spring:message code='dotsreports.exportToExcelBtn' />" />
+		<!-- <input type="button" id="tableToPdf" name="tableToPdf" value="<spring:message code='dotsreports.exportToPdfBtn' />" /> -->
+		<input type="button" id="tableToSql" name="tableToSql" value="<spring:message code='dotsreports.closeReportBtn' />" />
+		<input type="button" id="back" name="back" value="<spring:message code='dotsreports.back' />" onclick="document.location.href='${pageContext.request.contextPath}/module/mdrtb/mdrtbIndex.form';" />
 		
 		<script> 
 			console.log("${reportStatus}");

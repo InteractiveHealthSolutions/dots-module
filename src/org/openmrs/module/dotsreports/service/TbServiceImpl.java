@@ -612,8 +612,8 @@ public List<TbPatientProgram> getTbPatientPrograms(Patient patient) {
 //		for(Location loc : allLocations){
 //			
 //			String locName = loc.getName();
-//			if(!(locName.length() >= 2 && TbUtil.areRussianStringsEqual(locName.substring(0, 2), "БЛ") && !(locName.length() >= 2 && 
-//					TbUtil.areRussianStringsEqual(locName.substring(0, 2),"ГЦ")) && !(locName.length() >= 4 && TbUtil.areRussianStringsEqual(locName.substring(0, 4), "ОЦБТ")) && !TbUtil.areRussianStringsEqual(locName,"РЦЗНТ Душанбе") && !TbUtil.areRussianStringsEqual(locName,"НРЛ") && !TbUtil.areRussianStringsEqual(locName,"НЛОЗ")))
+//			if(!(locName.length() >= 2 && TbUtil.areRussianStringsEqual(locName.substring(0, 2), "Ð‘Ð›") && !(locName.length() >= 2 && 
+//					TbUtil.areRussianStringsEqual(locName.substring(0, 2),"Ð“Ð¦")) && !(locName.length() >= 4 && TbUtil.areRussianStringsEqual(locName.substring(0, 4), "ÐžÐ¦Ð‘Ð¢")) && !TbUtil.areRussianStringsEqual(locName,"Ð Ð¦Ð—Ð�Ð¢ Ð”ÑƒÑˆÐ°Ð½Ð±Ðµ") && !TbUtil.areRussianStringsEqual(locName,"Ð�Ð Ð›") && !TbUtil.areRussianStringsEqual(locName,"Ð�Ð›ÐžÐ—")))
 //				
 //				enrollmentLocations.add(loc);
 //		
@@ -622,5 +622,37 @@ public List<TbPatientProgram> getTbPatientPrograms(Patient patient) {
 //		return enrollmentLocations;
 //    }
 //    
+    
+    public int countPDFRows() {
+    	return dao.countPDFRows();
+    }
+    public int countPDFColumns() {
+    	return dao.countPDFColumns();
+    }
+    public List<List<Integer>> PDFRows() {
+    	return dao.PDFRows();
+    }
+    public ArrayList<String> PDFColumns() {
+    	return dao.PDFColumns();
+    }
+    public void savePDF(Integer oblast, String location, Integer year, Integer quarter, Integer month, String reportDate, String tableData, boolean reportStatus, String reportName) {
+    	dao.savePDF(oblast, location, year, quarter, month, reportDate, tableData, reportStatus, reportName);
+    }
+    public void unlockReport(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name, String date) {
+    	dao.unlockReport(oblast, location, year, quarter, month, name, date);
+    }
+    public boolean readReportStatus(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name) {
+    	return dao.readReportStatus(oblast, location, year, quarter, month, name);
+    }
+    public List<String> readTableData(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name, String date) {
+    	return dao.readTableData(oblast, location, year, quarter, month, name, date);
+    }
+    public List<Encounter> getEncountersByEncounterTypes(List<String> encounterTypeNames) {
+    	return dao.getEncountersByEncounterTypes(encounterTypeNames);
+    }
+    
+    public List<Encounter> getEncountersByEncounterTypes(List<String> encounterTypeNames, Date startDate, Date endDate, Date closeDate) {
+    	return dao.getEncountersByEncounterTypes(encounterTypeNames, startDate, endDate, closeDate);
+    }
     
 }

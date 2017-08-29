@@ -1,5 +1,6 @@
 package org.openmrs.module.dotsreports.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -337,12 +338,33 @@ public interface TbService extends OpenmrsService {
     public List<TbPatientProgram> getAllMdrtbPatientProgramsEnrolledInDateRange(Date startDate,
 			Date endDate);
     
-	 public List<Oblast> getOblasts();
+	public List<Oblast> getOblasts();
 
-	    public Oblast getOblast(Integer oblastId);
+	public Oblast getOblast(Integer oblastId);
 	    
-	    public List<Location> getLocationsFromOblastName(Oblast oblast);
+	public List<Location> getLocationsFromOblastName(Oblast oblast);
 	    
-	   /* public List<Location> getEnrollmentLocations();*/
+	 /*public List<Location> getEnrollmentLocations();*/
+	
+	public int countPDFRows();
+	
+	public int countPDFColumns();
+	    
+	public List<List<Integer>> PDFRows();
+	    
+	public ArrayList<String> PDFColumns();
+	    
+	public void unlockReport(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name, String date);
+	
+	public void savePDF(Integer oblast, String location, Integer year, Integer quarter, Integer month, String reportDate, String tableData, boolean reportStatus, String reportName);
+	
+	public boolean readReportStatus(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name);
+	
+	public List<String> readTableData(Integer oblast, Integer location, Integer year, Integer quarter, Integer month, String name, String date);
+	
+	public List<Encounter> getEncountersByEncounterTypes(List<String> encounterTypeNames);
+	
+	public List<Encounter> getEncountersByEncounterTypes(List<String> reportEncounterTypes, Date startDate, Date endDate, Date closeDate);
+
 }
 

@@ -4,9 +4,7 @@
 
 <html>
 	<head>
-		<title>
-			Closed Reports
-		</title>
+		<title>Closed Reports</title>
 
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/moduleResources/dotsreports/css/datatables.min.css"/>
 		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/jquery/jquery.dataTables.min.js"></script>

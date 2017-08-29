@@ -106,7 +106,7 @@ function savePdf(action, reportName, formPath) {
 $(document).ready(function(){
 	$("#tableToSql").bind("click", function() {
 		if(confirm('<spring:message code="dotsreports.closeReportMessage" />') ) {
-			savePdf("closeReport.form", "DQ", "dqResults");
+			savePdf("closeReport.form", "DOTSDQ", "dqResults");
 		}
 	});
 	/* $("#tableToPdf").click(function(){
@@ -412,6 +412,7 @@ $(document).ready(function(){
 <input type="button" onclick="tableToExcel('dq', 'DQ')" value="<spring:message code='dotsreports.exportToExcelBtn' />" />
 <!-- <input type="button" id="tableToPdf" name="tableToPdf" value="<spring:message code='dotsreports.exportToPdfBtn' />" /> -->
 <input type="button" id="tableToSql" name="tableToSql" value="<spring:message code='dotsreports.closeReportBtn' />" />
+<input type="button" id="back" name="back" value="<spring:message code='mdrtb.back' />" onclick="document.location.href='${pageContext.request.contextPath}/module/mdrtb/mdrtbIndex.form';" />
 
 <script> 
 	if("${reportStatus}" === "true") { 
