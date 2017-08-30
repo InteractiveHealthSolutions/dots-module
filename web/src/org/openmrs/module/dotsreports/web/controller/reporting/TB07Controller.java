@@ -3,51 +3,39 @@ package org.openmrs.module.dotsreports.web.controller.reporting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.Date;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
-
 import org.openmrs.Form;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-
 import org.openmrs.Person;
-
 import org.openmrs.api.context.Context;
-
 import org.openmrs.module.dotsreports.MdrtbConstants;
 import org.openmrs.module.dotsreports.Oblast;
 import org.openmrs.module.dotsreports.TbConcepts;
-
+import org.openmrs.module.dotsreports.reporting.PDFHelper;
 import org.openmrs.module.dotsreports.reporting.ReportUtil;
-
 import org.openmrs.module.dotsreports.reporting.TB07Table1Data;
 import org.openmrs.module.dotsreports.reporting.TB07Util;
-import org.openmrs.module.dotsreports.reporting.TB08Data;
 import org.openmrs.module.dotsreports.reporting.data.Cohorts;
 import org.openmrs.module.dotsreports.service.TbService;
-
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
-
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,7 +74,7 @@ public class TB07Controller {
     
 
     @RequestMapping(method=RequestMethod.POST, value="/module/dotsreports/reporting/tb07")
-    public String doTB07(
+    public static String doTB07(
     		@RequestParam("location") Location location,
     		@RequestParam("oblast") String oblast,
             @RequestParam(value="year", required=true) Integer year,
@@ -1809,11 +1797,22 @@ public class TB07Controller {
     	fin.add(table1);
 		}
     	
+		// TO CHECK WHETHER REPORT IS CLOSED OR NOT
+    	Integer report_oblast = null; Integer report_quarter = null; Integer report_month = null;
+		if(new PDFHelper().isInt(oblast)) { report_oblast = Integer.parseInt(oblast); }
+		if(new PDFHelper().isInt(quarter)) { report_quarter = Integer.parseInt(quarter); }
+		if(new PDFHelper().isInt(month)) { report_month = Integer.parseInt(month); }
+		
+    	boolean reportStatus = Context.getService(TbService.class).readReportStatus(report_oblast, location.getId(), year, report_quarter, report_month, "TB 07");
+		System.out.println(reportStatus);
+		
     	model.addAttribute("table1", fin);
+    	model.addAttribute("oblast", oblast);
     	model.addAttribute("location", location);
     	model.addAttribute("year", year);
     	model.addAttribute("quarter", quarter);
     	model.addAttribute("reportDate", sdf.format(new Date()));
+    	model.addAttribute("reportStatus", reportStatus);
         return "/module/dotsreports/reporting/tb07Results";
         //_" + Context.getLocale().toString().substring(0, 2);
     }

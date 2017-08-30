@@ -9,19 +9,7 @@ response.setDateHeader ("Expires", -1);
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
-<script type="text/javascript">
-var tableToExcel = (function() {
-  var uri = 'data:application/vnd.ms-excel;base64,'
-    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>TB03</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
-    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
-    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
-  return function(table, name) {
-    if (!table.nodeType) table = document.getElementById(table)
-    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
-    window.location.href = uri + base64(format(template, ctx))
-  }
-})()
-</script>
+
 	
 	
 		<title>TB 08</title>
@@ -29,15 +17,128 @@ var tableToExcel = (function() {
 	
 	</head>
 	<body>
+	    <script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/tableExport/js/tableExport.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/tableExport/js/jquery.base64.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/tableExport/js/jspdf/libs/sprintf.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/tableExport/js/jspdf/jspdf.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/tableExport/js/jspdf/libs/base64.js"></script>
+		<script type="text/javascript">
+			var tableToExcel = (function() {
+			  var uri = 'data:application/vnd.ms-excel;base64,'
+			    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>TB08</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+			    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+			    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+			  return function(table, name) {
+			    if (!table.nodeType) table = document.getElementById(table)
+			    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+			    window.location.href = uri + base64(format(template, ctx))
+			  }
+			})()
+			function savePdf(action, reportName, formPath) {
+				var tableData = (document.getElementById("tb08")).innerHTML.toString();
+				var oblast = "${oblast}";
+				var district = "${location.locationId}";
+				var year = "${year}";
+				var quarter = "${quarter}";
+				var month = "${month}";
+				var reportDate = "${reportDate}";
+				
+				var form = document.createElement("FORM");
+
+				form.setAttribute("id", "closeReportForm");
+			    form.setAttribute("name", "closeReportForm");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", action);
+			    
+			    document.body.appendChild(form);
+			    
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "oblast");
+			    input.setAttribute("name", "oblast");
+			    input.setAttribute("value", oblast);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "location");
+			    input.setAttribute("name", "location");
+			    input.setAttribute("value", district);
+			    form.appendChild(input);
+			    
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "year");
+			    input.setAttribute("name", "year");
+			    input.setAttribute("value", year);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "quarter");
+			    input.setAttribute("name", "quarter");
+			    input.setAttribute("value", quarter);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "month");
+			    input.setAttribute("name", "month");
+			    input.setAttribute("value", month);
+			    form.appendChild(input);
+			    
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "reportDate");
+			    input.setAttribute("name", "reportDate");
+			    input.setAttribute("value", reportDate);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "table");
+			    input.setAttribute("name", "table");
+			    input.setAttribute("value", tableData);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "formPath");
+			    input.setAttribute("name", "formPath");
+			    input.setAttribute("value", formPath);
+			    form.appendChild(input);
+
+			    var input = document.createElement("INPUT");
+			    input.setAttribute("type", "hidden");
+			    input.setAttribute("id", "reportName");
+			    input.setAttribute("name", "reportName");
+			    input.setAttribute("value", reportName);
+			    form.appendChild(input);
+			    
+			    form.submit();
+			}
+			$(document).ready(function(){
+				$("#tableToSql").bind("click", function() {
+					if(confirm('<spring:message code="dotsreports.closeReportMessage" />') ) {
+						savePdf("closeReport.form", "TB 08", "tb08Results");
+					}
+				});
+				/* $("#tableToPdf").click(function(){
+					savePdf("exportReport.form", "TB 08", "tb08Results");
+				}); */
+			});
+		</script>
+		
+		<div id="tb08" style="font-size:smaller; width:980px;">
 		<style>
 			th {vertical-align:top; text-align:center;}
 			th, td {font-size:smaller;border: 1px solid #000000}
 			border {border: 1px solid #000000}
 
 		</style>
-		<input type="button" onclick="tableToExcel('tb08', 'TB08')" value="Export to Excel" />
-		<table id="tb08"><tr><td>
-		<div style="font-size:smaller; width:980px;">
+		
+		
 			<table width="100%" border="0">
 			<tr>
 				<td align="left" width="90%" style="font-size:14px; font-weight:bold;border:0px">&nbsp;   
@@ -1865,7 +1966,21 @@ var tableToExcel = (function() {
 			</tbody>
 		</table>
 		</div>
-		</td></tr></table>
+		
+		<input type="button" onclick="tableToExcel('tb08', 'TB08')" value="<spring:message code='dotsreports.exportToExcelBtn' />" />
+		<!-- <input type="button" id="tableToPdf" name="tableToPdf" value="<spring:message code='dotsreports.exportToPdfBtn' />" /> -->
+		<input type="button" id="tableToSql" name="tableToSql" value="<spring:message code='dotsreports.closeReportBtn' />" />
+		<input type="button" id="back" name="back" value="<spring:message code='dotsreports.back' />" onclick="document.location.href='${pageContext.request.contextPath}/module/mdrtb/mdrtbIndex.form';" />
+
+		
+		<script> 
+			console.log("${reportStatus}");
+			if("${reportStatus}" === "true") { 
+				document.getElementById("tableToSql").disabled = true; 
+			} else { 
+				document.getElementById("tableToSql").disabled = false; 
+			}
+		</script>
 	</body>
 </html>
 			

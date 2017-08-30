@@ -17,7 +17,7 @@
     	<property name="order"><value>10</value></property>
     	<property name="mappings">
             <props>
-            	<prop key="cohortBuilder.list">mdrtbCohortBuilderController</prop>
+            	<prop key="cohortBuilder.list">dotsreportsCohortBuilderController</prop>
             	<prop key="**/dotsreportsPatientSummary.portlet">dotspatientSummaryPortletController</prop>
             	<prop key="**/dotsreportsShortSummary.portlet">dotsshortSummaryPortletController</prop>
             	<prop key="**/dotsreportsCustomList.portlet">dotscustomSummaryPortletController</prop>

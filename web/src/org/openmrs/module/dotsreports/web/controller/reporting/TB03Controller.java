@@ -2,22 +2,14 @@ package org.openmrs.module.dotsreports.web.controller.reporting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
-import org.openmrs.Drug;
-import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.Location;
@@ -25,13 +17,11 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Person;
-import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.dotsreports.MdrtbConceptMap;
 import org.openmrs.module.dotsreports.MdrtbConstants;
 import org.openmrs.module.dotsreports.Oblast;
 import org.openmrs.module.dotsreports.TbConcepts;
-import org.openmrs.module.dotsreports.TbUtil;
+import org.openmrs.module.dotsreports.reporting.PDFHelper;
 import org.openmrs.module.dotsreports.reporting.ReportUtil;
 import org.openmrs.module.dotsreports.reporting.TB03Data;
 import org.openmrs.module.dotsreports.reporting.TB03Util;
@@ -43,6 +33,20 @@ import org.openmrs.module.dotsreports.specimen.DstResult;
 import org.openmrs.module.dotsreports.specimen.HAIN;
 import org.openmrs.module.dotsreports.specimen.Smear;
 import org.openmrs.module.dotsreports.specimen.Xpert;
+import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
+import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.EvaluationException;
+import org.openmrs.propertyeditor.ConceptEditor;
+import org.openmrs.propertyeditor.LocationEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 /*import org.openmrs.module.mdrtbdrugforecast.DrugCount;
 import org.openmrs.module.mdrtbdrugforecast.MdrtbDrugStock;
 import org.openmrs.module.mdrtbdrugforecast.MdrtbUtil;
@@ -56,26 +60,6 @@ import org.openmrs.module.mdrtbdrugforecast.reporting.definition.MdrtbDrugForeca
 import org.openmrs.module.mdrtbdrugforecast.service.MdrtbDrugForecastService;
 import org.openmrs.module.mdrtbdrugforecast.status.TreatmentStatusCalculator;
 import org.openmrs.module.mdrtbdrugforecast.web.controller.status.DashboardTreatmentStatusRenderer;*/
-import org.openmrs.module.reporting.cohort.EvaluatedCohort;
-import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
-import org.openmrs.module.reporting.common.DateUtil;
-import org.openmrs.module.reporting.evaluation.EvaluationContext;
-import org.openmrs.module.reporting.evaluation.EvaluationException;
-import org.openmrs.module.reporting.evaluation.parameter.Parameter;
-import org.openmrs.propertyeditor.ConceptEditor;
-import org.openmrs.propertyeditor.LocationEditor;
-
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 
@@ -110,8 +94,9 @@ public class TB03Controller {
   
     
     
-    @RequestMapping(method=RequestMethod.POST, value="/module/dotsreports/reporting/tb03")
-    public String doTB03(
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	@RequestMapping(method=RequestMethod.POST, value="/module/dotsreports/reporting/tb03")
+    public static String doTB03(
     		@RequestParam("location") Location location,
     		@RequestParam("oblast") String oblast,
             @RequestParam(value="year", required=true) Integer year,
@@ -595,7 +580,23 @@ List<PatientIdentifier> idList = patient.getActiveIdentifiers();
     	model.addAttribute("num", num);
     	model.addAttribute("patientSet", patientSet);
     	model.addAttribute("locale", Context.getLocale().toString());
-        return "/module/dotsreports/reporting/tb03Results";
+
+    	
+    	// TO CHECK WHETHER REPORT IS CLOSED OR NOT
+    	Integer report_oblast = null; Integer report_quarter = null; Integer report_month = null;
+		if(new PDFHelper().isInt(oblast)) { report_oblast = Integer.parseInt(oblast); }
+		if(new PDFHelper().isInt(quarter)) { report_quarter = Integer.parseInt(quarter); }
+		if(new PDFHelper().isInt(month)) { report_month = Integer.parseInt(month); }
+		
+    	boolean reportStatus = Context.getService(TbService.class).readReportStatus(report_oblast, location.getId(), year, report_quarter, report_month, "TB 03");
+		System.out.println(reportStatus);
+    	model.addAttribute("oblast", oblast);
+    	model.addAttribute("location", location);
+    	model.addAttribute("year", year);
+    	model.addAttribute("quarter", quarter);
+    	model.addAttribute("reportDate", sdf.format(new Date()));
+    	model.addAttribute("reportStatus", reportStatus);
+    	return "/module/dotsreports/reporting/tb03Results";
     }
     
     
