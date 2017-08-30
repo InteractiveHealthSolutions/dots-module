@@ -4,9 +4,7 @@
 
 <html>
 	<head>
-		<title>
-			Closed Reports
-		</title>
+		<title>Closed Reports</title>
 
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/moduleResources/dotsreports/css/datatables.min.css"/>
 		<script type="text/javascript" src="<%= request.getContextPath() %>/moduleResources/dotsreports/jquery/jquery.dataTables.min.js"></script>
@@ -104,7 +102,7 @@
 					//REPORT_NAME
 					var cell = row.insertCell(-1);
 					cell.id="reportName_${reportIdLoop.index}";
-					cell.innerHTML = ("${reportNames[reportIdLoop.index]}");
+					cell.innerHTML = ("${reportNames[reportIdLoop.index]}").replace("_", " ").toUpperCase();
 					
 					//REPORT_DATE
 					var cell = row.insertCell(-1);
