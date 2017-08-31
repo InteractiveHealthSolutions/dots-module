@@ -10,6 +10,8 @@ import java.util.Set;
 
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.Form;
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -147,14 +149,38 @@ public class TB07Controller {
 		else
 			baseCohort = Cohorts.getTB03ByDatesAndLocation(startDate, endDate, null);
     	
+		
+		/////////NEW MODEL/////////////////////////////
+		EncounterType encType = Context.getEncounterService().getEncounterType(Context.getAdministrationService().getGlobalProperty("mdrtb.intake_encounter_type"));
+    	ArrayList<EncounterType> typeList = new ArrayList<EncounterType>();
+		typeList.add(encType);
+		
+		ArrayList<Encounter> tb03List = new ArrayList<Encounter>();
+		List<Encounter> tempList = null;
+		// OBLAST
+		if (!locList.isEmpty()) {
+			List<CohortDefinition> cohortDefinitions = new ArrayList<CohortDefinition>();
+			for (Location loc : locList) {
+				tempList = Context.getEncounterService().getEncounters(null,loc, startDate, endDate, null, typeList, false);
+				for(Encounter e : tempList) {
+					tb03List.add(e);
+				}
+			}
+							
+		}
+
+		else
+			tb03List = null;
+		
+		
     	Cohort patients = Context.getService(CohortDefinitionService.class).evaluate(baseCohort, new EvaluationContext());
     	//Cohort patients = TbUtil.getDOTSPatientsTJK(null, null, location, oblast, null, null, null, null,year,quarter,month);
     	
 		
-		Form tb03Form = Context.getFormService().getForm(MdrtbConstants.TB03_FORM_ID);
+		/*Form tb03Form = Context.getFormService().getForm(MdrtbConstants.TB03_FORM_ID);
 		ArrayList<Form> formList = new ArrayList<Form>();
 		formList.add(tb03Form);
-    	
+    	*/
     	
     	Set<Integer> idSet = patients.getMemberIds();
     	
@@ -208,7 +234,7 @@ public class TB07Controller {
     	    
     	    conceptQuestionList.add(q);
     	    
-    	    obsList = Context.getObsService().getObservations(patientList, null, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
+    	    obsList = Context.getObsService().getObservations(patientList, tb03List, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
     	    if(obsList.size()>0 && obsList.get(0)!=null && obsList.get(0).getValueNumeric()!=null)
     	    	ageAtRegistration = obsList.get(0).getValueNumeric().intValue();
     	    else {
@@ -218,7 +244,7 @@ public class TB07Controller {
     	    	 	conceptQuestionList.clear();
     	    	    conceptQuestionList.add(q);
     	    	    
-    	    	    obsList = Context.getObsService().getObservations(patientList, null, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
+    	    	    obsList = Context.getObsService().getObservations(patientList, tb03List, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
     	    	    if(obsList.size()>0 && obsList.get(0)!=null && obsList.get(0).getValueNumeric()!=null)
     	    	    	ageAtRegistration = obsList.get(0).getValueNumeric().intValue();
     	    	
@@ -274,7 +300,7 @@ public class TB07Controller {
     	    conceptQuestionList.clear();
     	    conceptQuestionList.add(q);
     	    
-    	    obsList = Context.getObsService().getObservations(patientList, null, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
+    	    obsList = Context.getObsService().getObservations(patientList, tb03List, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
     	    if(obsList.size()>0 && obsList.get(0)!=null) {
     	    	if(obsList.get(0).getValueCoded().getConceptId().intValue()==positiveConcept.getConceptId().intValue()) {
     	    		hivPositive = Boolean.TRUE;
@@ -306,7 +332,7 @@ public class TB07Controller {
     	    conceptQuestionList.clear();
     	    conceptQuestionList.add(q);
     	    
-    	    obsList = Context.getObsService().getObservations(patientList, null, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
+    	    obsList = Context.getObsService().getObservations(patientList, tb03List, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
     	    if(obsList.size()>0 && obsList.get(0)!=null) {
     	    	if(obsList.get(0).getValueDatetime() != null) {
     	    		table1.setArtStarted(table1.getArtStarted() + 1);
@@ -333,7 +359,7 @@ public class TB07Controller {
     	    conceptQuestionList.clear();
     	    conceptQuestionList.add(q);
     	    
-    	    obsList = Context.getObsService().getObservations(patientList, null, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
+    	    obsList = Context.getObsService().getObservations(patientList, tb03List, conceptQuestionList, null, null, null, null, null, null, startDate, endDate, false);
     	    if(obsList ==null || obsList.size()==0) {
     	    	
     	    	q = Context.getService(TbService.class).getConcept(TbConcepts.CAT_4_CLASSIFICATION_PREVIOUS_TX);
